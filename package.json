@@ -1,0 +1,24 @@
+{
+  "name": "spectator-assignment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nazreen/spectator-assignment.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nazreen/spectator-assignment/issues"
+  },
+  "homepage": "https://github.com/nazreen/spectator-assignment#readme",
+  "dependencies": {
+    "@hapi/hapi": "^18.4.0",
+    "jasmine": "^3.5.0"
+  }
+}
