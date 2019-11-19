@@ -16,15 +16,15 @@ fdescribe('prelim checks: ', () => {
   })
 })
 
-describe('payload validation:', () => {
-  it('items must be defined', async () => {
+fdescribe('payload validation:', () => {
+  fit('items must be defined', async () => {
     const request = {
       method: 'GET',
       url: '/calculate?currency=USD' // deliberately no items
     }
     const response = await server.inject(request)
     expect(response.statusCode).toBe(400)
-    expect(response.message).toBe('items is required')
+    expect(response.result.message).toBe('"items" is required')
   })
   it('items must not be empty', async () => {
     const request = {
