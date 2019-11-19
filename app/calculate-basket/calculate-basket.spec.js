@@ -33,17 +33,17 @@ fdescribe('payload validation:', () => {
     }
     const response = await server.inject(request)
     expect(response.statusCode).toBe(400)
-    expect(response.result.message).toBe('"items" must be an array')
+    expect(response.result.message).toBe('"items" is not allowed to be empty')
   })
 
-  it('currency must be defined', async () => {
+  fit('currency must be defined', async () => {
     const request = {
       method: 'GET',
       url: '/calculate?items=Apples' // deliberately no currency
     }
     const response = await server.inject(request)
     expect(response.statusCode).toBe(400)
-    expect(response.result.message).toBe('currency is required')
+    expect(response.result.message).toBe('"currency" is required')
   })
 })
 
