@@ -1,13 +1,18 @@
-const server = require('./server.js')
+const server = require('../server.js')
+const routes = require('./routes')
 
-describe('prelim checks: ', () => {
+beforeAll(async () => {
+  await server.register([routes])
+})
+
+fdescribe('prelim checks: ', () => {
   it('endpoint exists', async () => {
     const request = {
       method: 'GET',
       url: '/calculate' // deliberately no params
     }
     const response = await server.inject(request)
-    expect(response.statusCode).toBe(400)
+    expect(response.statusCode).not.toBe(404)
   })
 })
 
