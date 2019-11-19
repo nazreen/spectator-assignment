@@ -20,6 +20,7 @@
   "homepage": "https://github.com/nazreen/spectator-assignment#readme",
   "dependencies": {
     "@hapi/hapi": "^18.4.0",
+    "@hapi/joi": "^16.1.7",
     "jasmine": "^3.5.0"
   }
 }
