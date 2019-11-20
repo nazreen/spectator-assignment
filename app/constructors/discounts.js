@@ -1,7 +1,3 @@
-function Discount() {
-  this.itemCount = itemsCount[this.itemName]
-}
-
 function ApplesDiscount(itemsCount) {
   this.itemName = 'Apples'
   this.itemCount = itemsCount[this.itemName]

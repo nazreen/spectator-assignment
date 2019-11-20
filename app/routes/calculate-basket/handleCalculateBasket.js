@@ -4,7 +4,7 @@ const { ApplesDiscount, MilkDiscount } = require('../../constructors/discounts')
 function handleCalculateBasket(request, h) {
   try {
     const { items, currency } = request.query
-    const USDPriceList = new PriceList(currency)
+    const USDPriceList = new PriceList('USD')
     const output = new BasketCost(items, currency, USDPriceList.get(), [
       ApplesDiscount,
       MilkDiscount

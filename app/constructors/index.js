@@ -1,3 +1,5 @@
+const { SafeDec } = require('../utils/index')
+
 function ItemsCount(items) {
   this.dict = {}
   items.forEach(x => {
@@ -8,7 +10,7 @@ function ItemsCount(items) {
 function Subtotal(itemsCount, priceList) {
   let subtotal = 0
   Object.keys(itemsCount).forEach(item => {
-    subtotal += (priceList[item] * 10 * itemsCount[item]) / 10
+    subtotal += SafeDec.multiply(priceList[item], itemsCount[item])
   })
   this.subtotal = subtotal
 }
@@ -35,7 +37,7 @@ function BasketCost(items, currency, priceList, activeDiscounts) {
   this.discounts = discountCalculation.discounts
   this.discountAmt = discountCalculation.discountAmt
   this.currency = currency
-  this.total = (this.subtotal * 10 - this.discountAmt * 10) / 10
+  this.total = SafeDec.subtract(this.subtotal, this.discountAmt)
 }
 
 module.exports = {
