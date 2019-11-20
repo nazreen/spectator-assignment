@@ -35,7 +35,7 @@ function BasketCost(items, currency, priceList, activeDiscounts) {
   this.discounts = discountCalculation.discounts
   this.discountAmt = discountCalculation.discountAmt
   this.currency = currency
-  this.total = this.subtotal - this.discountAmt
+  this.total = (this.subtotal * 10 - this.discountAmt * 10) / 10
 }
 
 module.exports = {
