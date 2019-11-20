@@ -7,8 +7,4 @@ const priceList = {
   }
 }
 
-function getPriceList(currency) {
-  return priceList[currency]
-}
-
-module.exports = getPriceList
+module.exports = priceList

@@ -1,14 +1,4 @@
-function ItemsCount(items) {
-  this.dict = {}
-  items.forEach(x => {
-    this.dict[x] ? this.dict[x]++ : (this.dict[x] = 1)
-  })
-}
-
-function BasketCost(items, currency) {
-  this.output = 'harlowla'
-  this.itemsCount = new ItemsCount(items).dict
-}
+const { BasketCost, ItemsCount, Subtotal } = require('../../constructors/index')
 
 function handleCalculateBasket(request, h) {
   const { items, currency } = request.url.searchParams
@@ -17,3 +7,4 @@ function handleCalculateBasket(request, h) {
 }
 module.exports = handleCalculateBasket
 module.exports.BasketCost = BasketCost
+module.exports.Subtotal = Subtotal

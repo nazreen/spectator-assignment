@@ -1,4 +1,4 @@
-const server = require('../server.js')
+const server = require('../../server.js')
 const routes = require('./routes')
 
 beforeAll(async () => {
@@ -57,7 +57,7 @@ fdescribe('response validation - only USD:', () => {
     expect(response.statusCode).toBe(200)
     const expectedResult = {
       subtotal: 3.0,
-      discounts: ['s 10% off'],
+      discounts: ['Apples 10% off'],
       discountAmt: 0.3,
       total: 2.7,
       currency: 'USD'
