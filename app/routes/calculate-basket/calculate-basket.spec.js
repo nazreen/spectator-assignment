@@ -127,8 +127,8 @@ describe('response validation - get in EUR:', () => {
     const expectedResult = {
       subtotal: 2.38,
       discounts: ['Apples 10% off'],
-      discountAmt: 0.085,
-      total: 2.3, // 2.295
+      discountAmt: 0.09, // 0.085
+      total: 2.29, // 2.29
       currency: 'EUR'
     }
     expect({ ...response.result }).toEqual(expectedResult)

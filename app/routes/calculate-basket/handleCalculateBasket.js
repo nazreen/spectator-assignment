@@ -1,5 +1,5 @@
 const { BasketCost } = require('../../constructors/index')
-const PriceList = require('../../services/priceList')
+const { CurrencyLayer, PriceList } = require('../../services/index')
 const { ApplesDiscount, MilkDiscount } = require('../../constructors/discounts')
 function handleCalculateBasket(request, h) {
   try {
@@ -9,6 +9,13 @@ function handleCalculateBasket(request, h) {
       ApplesDiscount,
       MilkDiscount
     ])
+    if (currency !== 'USD') {
+      const currencyLayer = new CurrencyLayer()
+      currencyLayer.setRate('USD-EUR')
+      output.subtotal = currencyLayer.convert(output.subtotal)
+      output.discountAmt = currencyLayer.convert(output.discountAmt)
+      output.total = output.subtotal - output.discountAmt
+    }
     return output
   } catch (e) {
     throw e
