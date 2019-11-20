@@ -19,13 +19,13 @@ fdescribe('ApplesDiscount:', () => {
   })
 })
 
-describe('MilkDiscount: ', () => {
-  it('when not applicable', () => {
+fdescribe('MilkDiscount: ', () => {
+  fit('when not applicable', () => {
     const result = new MilkDiscount({ Milk: 2 })
     expect(result.itemName).toEqual('Milk')
     expect(result.itemCount).toEqual(2)
     expect(result.applicable).toEqual(false)
     expect(result.discountStatement).not.toBeDefined()
-    expect(result.amount).toEqual(0)
+    expect(result.amount).toEqual(undefined)
   })
 })
