@@ -193,10 +193,10 @@ describe('response validation - get in GBP:', () => {
     const response = await server.inject(request)
     expect(response.statusCode).toBe(200)
     const expectedResult = {
-      subtotal: 2.6565,
+      subtotal: 2.66, // 2.6565
       discounts: ['50 cents off with purchase of 3 Milks'],
-      discountAmt: 0.385,
-      total: 2.27, // 2.2715
+      discountAmt: 0.39, // 0.385
+      total: 2.27, // 2.27
       currency: 'GBP'
     }
     expect({ ...response.result }).toEqual(expectedResult)
