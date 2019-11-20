@@ -133,7 +133,7 @@ describe('response validation - only USD:', () => {
 
 // TODO: mock USD-EUR exchange rate to be 0.85
 describe('response validation - get in EUR:', () => {
-  fit('(provided example) correctly get Apples discount when mixed basket', async () => {
+  it('(provided example) correctly get Apples discount when mixed basket', async () => {
     const request = {
       method: 'GET',
       url: '/calculate?items=Apples,Milk,Soup&currency=EUR'
