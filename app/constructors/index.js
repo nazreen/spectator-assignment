@@ -13,9 +13,18 @@ function Subtotal(itemsCount, priceList) {
   this.subtotal = subtotal
 }
 
-function BasketCost(items, currency) {
-  this.output = 'harlowla'
+function DiscountCalculation(itemsCount, activeDiscounts) {
+  const discounts = []
+  let dicountAmt
+}
+
+function BasketCost(items, currency, priceList) {
   this.itemsCount = new ItemsCount(items).dict
+  this.subtotal = new Subtotal(this.itemsCount, priceList)
+  const discountCalculation = new DiscountCalculation(itemsCount, [])
+  this.discounts = discountCalculation.discounts
+  this.discountAmt = discountCalculation.discountAmt
+  this.total = this.subtotal - this.discounts
 }
 
 module.exports = {
