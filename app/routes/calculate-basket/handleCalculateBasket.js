@@ -11,7 +11,7 @@ function handleCalculateBasket(request, h) {
     ])
     if (currency !== 'USD') {
       const currencyLayer = new CurrencyLayer()
-      currencyLayer.setRate('USD-EUR')
+      currencyLayer.setRate(`USD-${currency}`)
       output.subtotal = currencyLayer.convert(output.subtotal)
       output.discountAmt = currencyLayer.convert(output.discountAmt)
       output.total = output.subtotal - output.discountAmt
