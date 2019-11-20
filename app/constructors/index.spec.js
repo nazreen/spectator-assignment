@@ -56,4 +56,21 @@ fdescribe('DiscountCalculation: ', () => {
     expect(result.discounts).toEqual(['Buy 3 Milks and get 50 cents off'])
     expect(result.discountAmt).toEqual(0.5)
   })
+  fit('apple discount', () => {
+    const itemsCount = { Apples: 2, Milk: 1 }
+    const activeDiscounts = [ApplesDiscount, MilkDiscount]
+    const result = new DiscountCalculation(itemsCount, activeDiscounts)
+    expect(result.discounts).toEqual(['Apples 10% off'])
+    expect(result.discountAmt).toEqual(0.2)
+  })
+  fit('milk and apples discount', () => {
+    const itemsCount = { Apples: 1, Milk: 3 }
+    const activeDiscounts = [ApplesDiscount, MilkDiscount]
+    const result = new DiscountCalculation(itemsCount, activeDiscounts)
+    expect(result.discounts).toEqual([
+      'Apples 10% off',
+      'Buy 3 Milks and get 50 cents off'
+    ])
+    expect(result.discountAmt).toEqual(0.6)
+  })
 })
