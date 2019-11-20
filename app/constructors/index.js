@@ -15,7 +15,14 @@ function Subtotal(itemsCount, priceList) {
 
 function DiscountCalculation(itemsCount, activeDiscounts) {
   const discounts = []
-  let dicountAmt
+  let discountAmt
+  // for every activeDiscount, apply and amend discounts and discountAmt
+  const discounts = activeDiscounts.map(activeDiscount =>
+    activeDiscount.calculate(itemsCount)
+  )
+
+  this.discounts = [] // join
+  let discountAmt // reduce
 }
 
 function BasketCost(items, currency, priceList) {

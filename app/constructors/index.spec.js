@@ -1,4 +1,9 @@
-const { BasketCost, ItemsCount, Subtotal } = require('./index')
+const {
+  BasketCost,
+  DiscountCalculation,
+  ItemsCount,
+  Subtotal
+} = require('./index')
 const priceList = require('../data/priceList')
 
 fdescribe('ItemsCount', () => {
