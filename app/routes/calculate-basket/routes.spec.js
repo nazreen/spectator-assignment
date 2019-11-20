@@ -1,8 +1,25 @@
 const server = require('../../server.js')
 const routes = require('./routes')
+const { round, SafeDec } = require('../../utils/index')
+const services = require('../../services/index')
+
+function mockCurrencyLayer(apiUrl) {
+  const mockPairings = {
+    'USD-EUR': 0.85,
+    'USD-GBP': 0.77
+  }
+  this.setRate = pairing => {
+    this.pairing = pairing
+    // TODO: get from api here
+    this.rate = mockPairings[pairing]
+  }
+
+  this.convert = value => round(SafeDec.multiply(value, this.rate), 2)
+}
 
 beforeAll(async () => {
   await server.register([routes])
+  spyOn(services, 'CurrencyLayer').and.callFake(mockCurrencyLayer)
 })
 
 describe('prelim checks: ', () => {
@@ -26,7 +43,7 @@ describe('payload validation:', () => {
     expect(response.statusCode).toBe(400)
     expect(response.result.message).toBe('"items" is required')
   })
-  fit('items must not be empty', async () => {
+  it('items must not be empty', async () => {
     const request = {
       method: 'GET',
       url: '/calculate?currency=USD&items=' // items deliberately empty
