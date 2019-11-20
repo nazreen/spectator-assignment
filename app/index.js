@@ -1,5 +1,5 @@
 const server = require('./server.js')
-const calculateBasketRoutes = require('./calculate-basket/routes')
+const calculateBasketRoutes = require('./routes/calculate-basket/routes')
 
 const routes = [calculateBasketRoutes]
 
