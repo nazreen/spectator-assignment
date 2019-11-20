@@ -6,7 +6,11 @@ function ItemsCount(items) {
 }
 
 function Subtotal(itemsCount, priceList) {
-  this.subtotal = 0
+  let subtotal = 0
+  Object.keys(itemsCount).forEach(item => {
+    subtotal += priceList[item] * itemsCount[item]
+  })
+  this.subtotal = subtotal
 }
 
 function BasketCost(items, currency) {

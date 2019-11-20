@@ -47,8 +47,8 @@ fdescribe('payload validation:', () => {
   })
 })
 
-fdescribe('response validation - only USD:', () => {
-  fit('correctly get Apples discount when only Apples', async () => {
+describe('response validation - only USD:', () => {
+  it('correctly get Apples discount when only Apples', async () => {
     const request = {
       method: 'GET',
       url: '/calculate?items=Apples,Apples,Apples&currency=USD'
