@@ -3,7 +3,7 @@ const customJoi = Joi.extend(joi => ({
   base: joi.array(),
   type: 'stringArray',
   coerce: (value, state, options) => {
-    if (value.split) return { value: value.split(',') }
+    if (value.split && value.length > 0) return { value: value.split(',') }
     else {
       return { value }
     }
@@ -13,6 +13,7 @@ const customJoi = Joi.extend(joi => ({
 const schema = Joi.object({
   items: customJoi
     .stringArray()
+    .min(1)
     .prefs({ convert: true })
     .required(), // TODO allow only whitelisted
   currency: Joi.string()

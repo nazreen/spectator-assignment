@@ -1,6 +1,5 @@
 const server = require('../../server.js')
 const routes = require('./routes')
-const { BasketCost } = require('../../constructors/index')
 
 beforeAll(async () => {
   await server.register([routes])
@@ -27,14 +26,14 @@ describe('payload validation:', () => {
     expect(response.statusCode).toBe(400)
     expect(response.result.message).toBe('"items" is required')
   })
-  it('items must not be empty', async () => {
+  fit('items must not be empty', async () => {
     const request = {
       method: 'GET',
       url: '/calculate?currency=USD&items=' // items deliberately empty
     }
     const response = await server.inject(request)
     expect(response.statusCode).toBe(400)
-    expect(response.result.message).toBe('"items" is not allowed to be empty')
+    expect(response.result.message).toBe('"items" must be an array')
   })
 
   it('currency must be defined', async () => {
@@ -49,7 +48,7 @@ describe('payload validation:', () => {
 })
 
 describe('response validation - only USD:', () => {
-  fit('correctly get Apples discount when only Apples', async () => {
+  it('correctly get Apples discount when only Apples', async () => {
     const request = {
       method: 'GET',
       url: '/calculate?items=Apples,Apples,Apples&currency=USD'
@@ -65,7 +64,7 @@ describe('response validation - only USD:', () => {
     }
     expect({ ...response.result }).toEqual(expectedResult)
   })
-  fit('correctly get Apples discount when mixed basket', async () => {
+  it('correctly get Apples discount when mixed basket', async () => {
     const request = {
       method: 'GET',
       url: '/calculate?items=Apples,Milk,Soup&currency=USD'
@@ -81,7 +80,7 @@ describe('response validation - only USD:', () => {
     }
     expect({ ...response.result }).toEqual(expectedResult)
   })
-  fit('correctly get Milk discount when only milk', async () => {
+  it('correctly get Milk discount when only milk', async () => {
     const request = {
       method: 'GET',
       url: '/calculate?items=Milk,Milk,Milk&currency=USD'
@@ -90,14 +89,14 @@ describe('response validation - only USD:', () => {
     expect(response.statusCode).toBe(200)
     const expectedResult = {
       subtotal: 3.45,
-      discounts: ['50 cents off with purchase of 3 Milks'],
+      discounts: ['Buy 3 Milks and get 50 cents off'],
       discountAmt: 0.5,
       total: 2.95,
       currency: 'USD'
     }
     expect({ ...response.result }).toEqual(expectedResult)
   })
-  fit('correctly get Milk and Apples discount when mixed basket', async () => {
+  it('correctly get Milk and Apples discount when mixed basket', async () => {
     const request = {
       method: 'GET',
       url: '/calculate?items=Milk,Milk,Milk,Apples,Bread&currency=USD'
@@ -106,7 +105,7 @@ describe('response validation - only USD:', () => {
     expect(response.statusCode).toBe(200)
     const expectedResult = {
       subtotal: 5.25,
-      discounts: ['Apples 10% off', '50 cents off with purchase of 3 Milks'],
+      discounts: ['Apples 10% off', 'Buy 3 Milks and get 50 cents off'],
       discountAmt: 0.6,
       total: 4.65,
       currency: 'USD'
@@ -117,7 +116,7 @@ describe('response validation - only USD:', () => {
 
 // TODO: mock USD-EUR exchange rate to be 0.85
 describe('response validation - get in EUR:', () => {
-  fit('(provided example) correctly get Apples discount when mixed basket', async () => {
+  it('(provided example) correctly get Apples discount when mixed basket', async () => {
     const request = {
       method: 'GET',
       url: '/calculate?items=Apples,Milk,Soup&currency=EUR'
@@ -133,7 +132,7 @@ describe('response validation - get in EUR:', () => {
     }
     expect({ ...response.result }).toEqual(expectedResult)
   })
-  fit('correctly get Milk discount when only milk', async () => {
+  it('correctly get Milk discount when only milk', async () => {
     const request = {
       method: 'GET',
       url: '/calculate?items=Milk,Milk,Milk&currency=EUR'
@@ -142,7 +141,7 @@ describe('response validation - get in EUR:', () => {
     expect(response.statusCode).toBe(200)
     const expectedResult = {
       subtotal: 2.93, // 2.9325
-      discounts: ['50 cents off with purchase of 3 Milks'],
+      discounts: ['Buy 3 Milks and get 50 cents off'],
       discountAmt: 0.43, // 0.425
       total: 2.5, // 2.5
       currency: 'EUR'
@@ -152,13 +151,13 @@ describe('response validation - get in EUR:', () => {
   it('correctly get Milk and Apples discount when mixed basket', async () => {
     const request = {
       method: 'GET',
-      url: '/calculate?items=Milk,Milk,Milk,Apples,Bread&currency=USD'
+      url: '/calculate?items=Milk,Milk,Milk,Apples,Bread&currency=EUR'
     }
     const response = await server.inject(request)
     expect(response.statusCode).toBe(200)
     const expectedResult = {
       subtotal: 4.46, // 4.4625
-      discounts: ['50 cents off with purchase of 3 Milks'],
+      discounts: ['Apples 10% off', 'Buy 3 Milks and get 50 cents off'],
       discountAmt: 0.51, // 0.51
       total: 3.95, // 3.95
       currency: 'EUR'
@@ -169,7 +168,7 @@ describe('response validation - get in EUR:', () => {
 
 // TODO: mock USD-GBP exchange rate to be 0.77
 describe('response validation - get in GBP:', () => {
-  fit('correctly get Apples discount when mixed basket', async () => {
+  it('correctly get Apples discount when mixed basket', async () => {
     const request = {
       method: 'GET',
       url: '/calculate?items=Apples,Milk,Soup&currency=GBP'
@@ -185,7 +184,7 @@ describe('response validation - get in GBP:', () => {
     }
     expect({ ...response.result }).toEqual(expectedResult)
   })
-  fit('correctly get Milk discount when only milk', async () => {
+  it('correctly get Milk discount when only milk', async () => {
     const request = {
       method: 'GET',
       url: '/calculate?items=Milk,Milk,Milk&currency=GBP'
@@ -194,7 +193,7 @@ describe('response validation - get in GBP:', () => {
     expect(response.statusCode).toBe(200)
     const expectedResult = {
       subtotal: 2.66, // 2.6565
-      discounts: ['50 cents off with purchase of 3 Milks'],
+      discounts: ['Buy 3 Milks and get 50 cents off'],
       discountAmt: 0.39, // 0.385
       total: 2.27, // 2.27
       currency: 'GBP'
@@ -210,7 +209,7 @@ describe('response validation - get in GBP:', () => {
     expect(response.statusCode).toBe(200)
     const expectedResult = {
       subtotal: 4.04, // 4.0425
-      discounts: ['50 cents off with purchase of 3 Milks'],
+      discounts: ['Apples 10% off', 'Buy 3 Milks and get 50 cents off'],
       discountAmt: 0.46, // 0.462
       total: 3.58, // 3.5805
       currency: 'GBP'

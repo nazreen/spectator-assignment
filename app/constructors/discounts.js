@@ -13,7 +13,7 @@ function MilkDiscount(itemsCount) {
   this.applicable = this.itemCount && this.itemCount >= 3
   if (!this.applicable) return
   this.discountStatement = this.applicable
-    ? '50 cents off with purchase of 3 Milks'
+    ? 'Buy 3 Milks and get 50 cents off'
     : null
   this.amount = 0.5
 }
