@@ -14,14 +14,16 @@ function Subtotal(itemsCount, priceList) {
 }
 
 function DiscountCalculation(itemsCount, activeDiscounts) {
-  let discountAmt = 0
   // for every activeDiscount, apply and amend discounts and discountAmt
-  const discounts = activeDiscounts.map(
+  const calculatedDiscounts = activeDiscounts.map(
     activeDiscount => new activeDiscount(itemsCount)
   )
+  const appliedDiscounts = calculatedDiscounts.filter(x => x.applicable)
 
-  this.discounts = [] // join
-  this.discountAmt = discountAmt
+  this.discounts = appliedDiscounts.map(x => x.discountStatement)
+  const reducer = (a, b) => a + b.amount
+  this.discountAmt =
+    appliedDiscounts.length > 0 ? appliedDiscounts.reduce(reducer, 0) : 0
 }
 
 function BasketCost(items, currency, priceList) {

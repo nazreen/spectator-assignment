@@ -42,11 +42,11 @@ fdescribe('DiscountCalculation: ', () => {
     expect(result.discounts).toEqual([])
     expect(result.discountAmt).toEqual(0)
   })
-  it('apple discount', () => {
+  fit('apple discount', () => {
     const itemsCount = { Apples: 2, Milk: 1 }
     const activeDiscounts = [ApplesDiscount, MilkDiscount]
     const result = new DiscountCalculation(itemsCount, activeDiscounts)
-    expect(result.discounts).toEqual(['Apples 10% discount'])
+    expect(result.discounts).toEqual(['Apples 10% off'])
     expect(result.discountAmt).toEqual(0.2)
   })
   it('milk discount', () => {
