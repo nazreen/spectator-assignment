@@ -97,7 +97,7 @@ describe('response validation - only USD:', () => {
     }
     expect({ ...response.result }).toEqual(expectedResult)
   })
-  it('correctly get Milk and Apples discount when mixed basket', async () => {
+  fit('correctly get Milk and Apples discount when mixed basket', async () => {
     const request = {
       method: 'GET',
       url: '/calculate?items=Milk,Milk,Milk,Apples,Bread&currency=USD'
@@ -106,7 +106,7 @@ describe('response validation - only USD:', () => {
     expect(response.statusCode).toBe(200)
     const expectedResult = {
       subtotal: 5.25,
-      discounts: ['50 cents off with purchase of 3 Milks'],
+      discounts: ['Apples 10% off', '50 cents off with purchase of 3 Milks'],
       discountAmt: 0.6,
       total: 4.65,
       currency: 'USD'
