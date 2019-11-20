@@ -2,10 +2,15 @@
 
 # up and running
 
-`npm start`
+1. Go to `/app/routes/calculate-basket/handleCalculateBasket.js`
+2. On Line 5, that has `const API_KEY = 'API_KEY_HERE'`, fill in the API_KEY provided
+3. Run `npm start` in the project root folder
 
 # making a request
 
-Params are passed as queries in a GET request to `/calculate`
+Params are passed as queries in a GET request to `localhost:3000/calculate`
 
-`GET http://localhost:3000/calculate?items=Apples&currency=USD`
+`GET http://localhost:3000/calculate?items=Apples,Bread&currency=USD`
+
+items: comma separated list
+currency: USD | EUR | GBP
