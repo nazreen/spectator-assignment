@@ -1,7 +1,9 @@
 const { BasketCost } = require('../../constructors/index')
 const services = require('../../services/index')
 const { ApplesDiscount, MilkDiscount } = require('../../constructors/discounts')
-function handleCalculateBasket(request, h) {
+const API_URL = 'http://apilayer.net/api/live'
+const API_KEY = 'API_KEY_HERE'
+async function handleCalculateBasket(request, h) {
   try {
     const { items, currency } = request.query
     const USDPriceList = new services.PriceList('USD')
@@ -10,8 +12,8 @@ function handleCalculateBasket(request, h) {
       MilkDiscount
     ])
     if (currency !== 'USD') {
-      const currencyLayer = new services.CurrencyLayer()
-      currencyLayer.setRate(`USD-${currency}`)
+      const currencyLayer = new services.CurrencyLayer(API_URL, API_KEY)
+      await currencyLayer.setRate(`USD${currency}`)
       output.subtotal = currencyLayer.convert(output.subtotal)
       output.discountAmt = currencyLayer.convert(output.discountAmt)
       output.total = output.subtotal - output.discountAmt

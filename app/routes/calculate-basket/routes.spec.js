@@ -5,8 +5,8 @@ const services = require('../../services/index')
 
 function mockCurrencyLayer(apiUrl) {
   const mockPairings = {
-    'USD-EUR': 0.85,
-    'USD-GBP': 0.77
+    USDEUR: 0.85,
+    USDGBP: 0.77
   }
   this.setRate = pairing => {
     this.pairing = pairing
@@ -133,7 +133,7 @@ describe('response validation - only USD:', () => {
 
 // TODO: mock USD-EUR exchange rate to be 0.85
 describe('response validation - get in EUR:', () => {
-  it('(provided example) correctly get Apples discount when mixed basket', async () => {
+  fit('(provided example) correctly get Apples discount when mixed basket', async () => {
     const request = {
       method: 'GET',
       url: '/calculate?items=Apples,Milk,Soup&currency=EUR'
