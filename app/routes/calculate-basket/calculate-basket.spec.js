@@ -81,7 +81,7 @@ describe('response validation - only USD:', () => {
     }
     expect({ ...response.result }).toEqual(expectedResult)
   })
-  it('correctly get Milk discount when only milk', async () => {
+  fit('correctly get Milk discount when only milk', async () => {
     const request = {
       method: 'GET',
       url: '/calculate?items=Milk,Milk,Milk&currency=USD'
