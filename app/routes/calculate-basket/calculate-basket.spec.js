@@ -133,7 +133,7 @@ describe('response validation - get in EUR:', () => {
     }
     expect({ ...response.result }).toEqual(expectedResult)
   })
-  it('correctly get Milk discount when only milk', async () => {
+  fit('correctly get Milk discount when only milk', async () => {
     const request = {
       method: 'GET',
       url: '/calculate?items=Milk,Milk,Milk&currency=EUR'
@@ -141,10 +141,10 @@ describe('response validation - get in EUR:', () => {
     const response = await server.inject(request)
     expect(response.statusCode).toBe(200)
     const expectedResult = {
-      subtotal: 2.9325,
+      subtotal: 2.93, // 2.9325
       discounts: ['50 cents off with purchase of 3 Milks'],
-      discountAmt: 0.425,
-      total: 2.51, // 2.5075
+      discountAmt: 0.43, // 0.425
+      total: 2.5, // 2.5
       currency: 'EUR'
     }
     expect({ ...response.result }).toEqual(expectedResult)
