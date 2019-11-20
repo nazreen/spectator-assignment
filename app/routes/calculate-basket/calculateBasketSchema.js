@@ -20,7 +20,7 @@ const schema = Joi.object({
         .allow('Apples', 'Milk', 'Soup', 'Bread')
     )
     .prefs({ convert: true })
-    .required(), // TODO allow only whitelisted
+    .required(),
   currency: Joi.string()
     .only()
     .allow('GBP', 'USD', 'EUR')

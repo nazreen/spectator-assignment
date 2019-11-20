@@ -10,7 +10,6 @@ function mockCurrencyLayer(apiUrl) {
   }
   this.setRate = pairing => {
     this.pairing = pairing
-    // TODO: get from api here
     this.rate = mockPairings[pairing]
   }
 
@@ -131,7 +130,6 @@ describe('response validation - only USD:', () => {
   })
 })
 
-// TODO: mock USD-EUR exchange rate to be 0.85
 describe('response validation - get in EUR:', () => {
   it('(provided example) correctly get Apples discount when mixed basket', async () => {
     const request = {
@@ -183,7 +181,6 @@ describe('response validation - get in EUR:', () => {
   })
 })
 
-// TODO: mock USD-GBP exchange rate to be 0.77
 describe('response validation - get in GBP:', () => {
   it('correctly get Apples discount when mixed basket', async () => {
     const request = {
