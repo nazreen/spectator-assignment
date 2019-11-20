@@ -4,6 +4,7 @@ const {
   ItemsCount,
   Subtotal
 } = require('./index')
+const { ApplesDiscount, MilkDiscount } = require('./discounts')
 const priceList = require('../data/priceList')
 
 fdescribe('ItemsCount', () => {
@@ -36,18 +37,21 @@ describe('Subtotal: ', () => {
 fdescribe('DiscountCalculation: ', () => {
   fit('no discount: bread only', () => {
     const itemsCount = { Bread: 1 }
+    const activeDiscounts = [ApplesDiscount, MilkDiscount]
     const result = new DiscountCalculation(itemsCount, activeDiscounts)
     expect(result.discounts).toEqual([])
     expect(result.discountAmt).toEqual(0)
   })
   it('apple discount', () => {
     const itemsCount = { Apples: 2, Milk: 1 }
+    const activeDiscounts = [ApplesDiscount, MilkDiscount]
     const result = new DiscountCalculation(itemsCount, activeDiscounts)
     expect(result.discounts).toEqual(['Apples 10% discount'])
     expect(result.discountAmt).toEqual(0.2)
   })
   it('milk discount', () => {
     const itemsCount = { Bread: 2, Milk: 3 }
+    const activeDiscounts = [ApplesDiscount, MilkDiscount]
     const result = new DiscountCalculation(itemsCount, activeDiscounts)
     expect(result.discounts).toEqual(['50 cent discount when buying 3 Milks'])
     expect(result.discountAmt).toEqual(0.5)

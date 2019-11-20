@@ -14,15 +14,14 @@ function Subtotal(itemsCount, priceList) {
 }
 
 function DiscountCalculation(itemsCount, activeDiscounts) {
-  const discounts = []
-  let discountAmt
+  let discountAmt = 0
   // for every activeDiscount, apply and amend discounts and discountAmt
-  const discounts = activeDiscounts.map(activeDiscount =>
-    activeDiscount.calculate(itemsCount)
+  const discounts = activeDiscounts.map(
+    activeDiscount => new activeDiscount(itemsCount)
   )
 
   this.discounts = [] // join
-  let discountAmt // reduce
+  this.discountAmt = discountAmt
 }
 
 function BasketCost(items, currency, priceList) {
@@ -37,5 +36,6 @@ function BasketCost(items, currency, priceList) {
 module.exports = {
   ItemsCount,
   Subtotal,
+  DiscountCalculation,
   BasketCost
 }
