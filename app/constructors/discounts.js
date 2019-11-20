@@ -8,7 +8,7 @@ function ApplesDiscount(itemsCount) {
   this.applicable = this.itemCount && this.itemCount > 0
   if (!this.applicable) return
   this.discountStatement = this.applicable ? 'Apples 10% off' : null
-  this.amount = this.itemCount * 0.1
+  this.amount = (this.itemCount * (0.1 * 10)) / 10 // for JS's decimal multiplication problem
 }
 
 function MilkDiscount(itemsCount) {

@@ -7,14 +7,14 @@ const {
 const { ApplesDiscount, MilkDiscount } = require('./discounts')
 const priceList = require('../data/priceList')
 
-fdescribe('ItemsCount', () => {
-  fit('given items, generates list accurately', () => {
+describe('ItemsCount', () => {
+  it('given items, generates list accurately', () => {
     const items = ['Apples', 'Apples', 'Milk']
     const result = new ItemsCount(items).dict
     expect(result).toEqual({ Apples: 2, Milk: 1 })
   })
 
-  fit('given items, generates list accurately', () => {
+  it('given items, generates list accurately', () => {
     const items = ['Apples', 'Apples', 'Milk', 'Bread']
     const result = new ItemsCount(items, 'USD').dict
     expect(result).toEqual({ Apples: 2, Milk: 1, Bread: 1 })
@@ -22,7 +22,7 @@ fdescribe('ItemsCount', () => {
 })
 
 describe('Subtotal: ', () => {
-  fit('calculates : Apples,Apples', () => {
+  it('calculates : Apples,Apples', () => {
     const itemsCount = { Apples: 2 }
     const result = new Subtotal(itemsCount, priceList['USD']).subtotal
     expect(result).toEqual(2.0)
@@ -34,36 +34,36 @@ describe('Subtotal: ', () => {
   })
 })
 
-fdescribe('DiscountCalculation: ', () => {
-  fit('no discount: bread only', () => {
+describe('DiscountCalculation: ', () => {
+  it('no discount: bread only', () => {
     const itemsCount = { Bread: 1 }
     const activeDiscounts = [ApplesDiscount, MilkDiscount]
     const result = new DiscountCalculation(itemsCount, activeDiscounts)
     expect(result.discounts).toEqual([])
     expect(result.discountAmt).toEqual(0)
   })
-  fit('apple discount', () => {
+  it('apple discount', () => {
     const itemsCount = { Apples: 2, Milk: 1 }
     const activeDiscounts = [ApplesDiscount, MilkDiscount]
     const result = new DiscountCalculation(itemsCount, activeDiscounts)
     expect(result.discounts).toEqual(['Apples 10% off'])
     expect(result.discountAmt).toEqual(0.2)
   })
-  fit('milk discount', () => {
+  it('milk discount', () => {
     const itemsCount = { Bread: 2, Milk: 3 }
     const activeDiscounts = [ApplesDiscount, MilkDiscount]
     const result = new DiscountCalculation(itemsCount, activeDiscounts)
     expect(result.discounts).toEqual(['Buy 3 Milks and get 50 cents off'])
     expect(result.discountAmt).toEqual(0.5)
   })
-  fit('apple discount', () => {
+  it('apple discount', () => {
     const itemsCount = { Apples: 2, Milk: 1 }
     const activeDiscounts = [ApplesDiscount, MilkDiscount]
     const result = new DiscountCalculation(itemsCount, activeDiscounts)
     expect(result.discounts).toEqual(['Apples 10% off'])
     expect(result.discountAmt).toEqual(0.2)
   })
-  fit('milk and apples discount', () => {
+  it('milk and apples discount', () => {
     const itemsCount = { Apples: 1, Milk: 3 }
     const activeDiscounts = [ApplesDiscount, MilkDiscount]
     const result = new DiscountCalculation(itemsCount, activeDiscounts)

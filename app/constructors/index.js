@@ -13,26 +13,29 @@ function Subtotal(itemsCount, priceList) {
   this.subtotal = subtotal
 }
 
-function DiscountCalculation(itemsCount, activeDiscounts) {
+function DiscountCalculation(itemsCount, activeDiscounts = []) {
   // for every activeDiscount, apply and amend discounts and discountAmt
   const calculatedDiscounts = activeDiscounts.map(
     activeDiscount => new activeDiscount(itemsCount)
   )
   const appliedDiscounts = calculatedDiscounts.filter(x => x.applicable)
-
   this.discounts = appliedDiscounts.map(x => x.discountStatement)
   const reducer = (a, b) => a + b.amount
   this.discountAmt =
     appliedDiscounts.length > 0 ? appliedDiscounts.reduce(reducer, 0) : 0
 }
 
-function BasketCost(items, currency, priceList) {
-  this.itemsCount = new ItemsCount(items).dict
-  this.subtotal = new Subtotal(this.itemsCount, priceList)
-  const discountCalculation = new DiscountCalculation(itemsCount, [])
+function BasketCost(items, currency, priceList, activeDiscounts) {
+  const itemsCount = new ItemsCount(items).dict
+  this.subtotal = new Subtotal(itemsCount, priceList).subtotal
+  const discountCalculation = new DiscountCalculation(
+    itemsCount,
+    activeDiscounts
+  )
   this.discounts = discountCalculation.discounts
   this.discountAmt = discountCalculation.discountAmt
-  this.total = this.subtotal - this.discounts
+  this.currency = currency
+  this.total = this.subtotal - this.discountAmt
 }
 
 module.exports = {

@@ -1,11 +1,12 @@
 const server = require('../../server.js')
 const routes = require('./routes')
+const { BasketCost } = require('../../constructors/index')
 
 beforeAll(async () => {
   await server.register([routes])
 })
 
-fdescribe('prelim checks: ', () => {
+describe('prelim checks: ', () => {
   it('endpoint exists', async () => {
     const request = {
       method: 'GET',
@@ -16,8 +17,8 @@ fdescribe('prelim checks: ', () => {
   })
 })
 
-fdescribe('payload validation:', () => {
-  fit('items must be defined', async () => {
+describe('payload validation:', () => {
+  it('items must be defined', async () => {
     const request = {
       method: 'GET',
       url: '/calculate?currency=USD' // deliberately no items
@@ -26,7 +27,7 @@ fdescribe('payload validation:', () => {
     expect(response.statusCode).toBe(400)
     expect(response.result.message).toBe('"items" is required')
   })
-  fit('items must not be empty', async () => {
+  it('items must not be empty', async () => {
     const request = {
       method: 'GET',
       url: '/calculate?currency=USD&items=' // items deliberately empty
@@ -36,7 +37,7 @@ fdescribe('payload validation:', () => {
     expect(response.result.message).toBe('"items" is not allowed to be empty')
   })
 
-  fit('currency must be defined', async () => {
+  it('currency must be defined', async () => {
     const request = {
       method: 'GET',
       url: '/calculate?items=Apples' // deliberately no currency
@@ -48,7 +49,7 @@ fdescribe('payload validation:', () => {
 })
 
 describe('response validation - only USD:', () => {
-  it('correctly get Apples discount when only Apples', async () => {
+  fit('correctly get Apples discount when only Apples', async () => {
     const request = {
       method: 'GET',
       url: '/calculate?items=Apples,Apples,Apples&currency=USD'
@@ -62,7 +63,8 @@ describe('response validation - only USD:', () => {
       total: 2.7,
       currency: 'USD'
     }
-    expect(response.result).toEqual(expectedResult)
+    expect(response.result).toEqual(jasmine.any(BasketCost))
+    expect({ ...response.result }).toEqual(expectedResult)
   })
   it('correctly get Apples discount when mixed basket', async () => {
     const request = {
