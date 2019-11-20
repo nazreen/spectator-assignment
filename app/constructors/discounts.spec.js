@@ -28,4 +28,12 @@ fdescribe('MilkDiscount: ', () => {
     expect(result.discountStatement).not.toBeDefined()
     expect(result.amount).toEqual(undefined)
   })
+  fit('when applicable', () => {
+    const result = new MilkDiscount({ Milk: 3, Bread: 1 })
+    expect(result.itemName).toEqual('Milk')
+    expect(result.itemCount).toEqual(3)
+    expect(result.applicable).toEqual(true)
+    expect(result.discountStatement).toEqual('Buy 3 Milks and get 50 cents off')
+    expect(result.amount).toEqual(0.5)
+  })
 })
