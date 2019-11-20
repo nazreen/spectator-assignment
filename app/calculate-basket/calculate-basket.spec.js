@@ -47,8 +47,8 @@ fdescribe('payload validation:', () => {
   })
 })
 
-describe('response validation - only USD:', () => {
-  it('correctly get Apples discount when only Apples', async () => {
+fdescribe('response validation - only USD:', () => {
+  fit('correctly get Apples discount when only Apples', async () => {
     const request = {
       method: 'GET',
       url: '/calculate?items=Apples,Apples,Apples&currency=USD'
@@ -62,7 +62,7 @@ describe('response validation - only USD:', () => {
       total: 2.7,
       currency: 'USD'
     }
-    expect(response.result).toBe(expectedResult)
+    expect(response.result).toEqual(expectedResult)
   })
   it('correctly get Apples discount when mixed basket', async () => {
     const request = {
@@ -78,7 +78,7 @@ describe('response validation - only USD:', () => {
       total: 2.7, // 2.7
       currency: 'EUR'
     }
-    expect(response.result).toBe(expectedResult)
+    expect(response.result).toEqual(expectedResult)
   })
   it('correctly get Milk discount when only milk', async () => {
     const request = {
@@ -94,7 +94,7 @@ describe('response validation - only USD:', () => {
       total: 2.95,
       currency: 'USD'
     }
-    expect(response.result).toBe(expectedResult)
+    expect(response.result).toEqual(expectedResult)
   })
   it('correctly get Milk and Apples discount when mixed basket', async () => {
     const request = {
@@ -110,7 +110,7 @@ describe('response validation - only USD:', () => {
       total: 4.65,
       currency: 'USD'
     }
-    expect(response.result).toBe(expectedResult)
+    expect(response.result).toEqual(expectedResult)
   })
 })
 
@@ -130,7 +130,7 @@ describe('response validation - get in EUR:', () => {
       total: 2.3, // 2.295
       currency: 'EUR'
     }
-    expect(response.result).toBe(expectedResult)
+    expect(response.result).toEqual(expectedResult)
   })
   it('correctly get Milk discount when only milk', async () => {
     const request = {
@@ -146,7 +146,7 @@ describe('response validation - get in EUR:', () => {
       total: 2.51, // 2.5075
       currency: 'EUR'
     }
-    expect(response.result).toBe(expectedResult)
+    expect(response.result).toEqual(expectedResult)
   })
   it('correctly get Milk and Apples discount when mixed basket', async () => {
     const request = {
@@ -162,7 +162,7 @@ describe('response validation - get in EUR:', () => {
       total: 3.95, // 3.9525
       currency: 'EUR'
     }
-    expect(response.result).toBe(expectedResult)
+    expect(response.result).toEqual(expectedResult)
   })
 })
 
@@ -182,7 +182,7 @@ describe('response validation - get in GBP:', () => {
       total: 2.08, // 2.079
       currency: 'GBP'
     }
-    expect(response.result).toBe(expectedResult)
+    expect(response.result).toEqual(expectedResult)
   })
   it('correctly get Milk discount when only milk', async () => {
     const request = {
@@ -198,7 +198,7 @@ describe('response validation - get in GBP:', () => {
       total: 2.27, // 2.2715
       currency: 'GBP'
     }
-    expect(response.result).toBe(expectedResult)
+    expect(response.result).toEqual(expectedResult)
   })
   it('correctly get Milk and Apples discount when mixed basket', async () => {
     const request = {
@@ -214,6 +214,6 @@ describe('response validation - get in GBP:', () => {
       total: 3.58, // 3.5805
       currency: 'GBP'
     }
-    expect(response.result).toBe(expectedResult)
+    expect(response.result).toEqual(expectedResult)
   })
 })
